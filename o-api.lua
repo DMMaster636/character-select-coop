@@ -974,6 +974,23 @@ local function character_add_grafitti(charNum, texture)
     characterGraffiti[charNum] = texture
 end
 
+---@description Resets the Character Select Menu Theme, useful if modified
+---@added 1.16.1
+---@param playMusic boolean? If it should immediately play the menu theme again or not
+local function reset_menu_music(playMusic)
+    if playMusic == nil then playMusic = false end
+    -- I'll be honest, I have no idea how Coop DX handles audio, so...
+    -- Oh, I'm also on mobile, so this might be a little messy   -Demi
+    audio_stream_stop(SOUND_CHAR_SELECT_THEME)
+    audio_stream_destroy(SOUND_CHAR_SELECT_THEME)
+    SOUND_CHAR_SELECT_THEME = nil
+
+    SOUND_CHAR_SELECT_THEME = audio_stream_load("char-select-menu-theme.ogg")
+    audio_stream_set_looping(SOUND_CHAR_SELECT_THEME, true)
+    audio_stream_set_loop_points(SOUND_CHAR_SELECT_THEME, 0, 93.659*22050)
+    if playMusic then audio_stream_play(SOUND_CHAR_SELECT_THEME, true, 1) end
+end
+
 _G.charSelectExists = true
 _G.charSelect = {
     -- Character Functions --
@@ -1039,6 +1056,7 @@ _G.charSelect = {
     restrict_movesets = restrict_movesets,
     are_palettes_restricted = are_palettes_restricted,
     are_movesets_restricted = are_movesets_restricted,
+    reset_menu_music = reset_menu_music,
 
     -- Misc --
     dialog_set_replace_name = dialog_set_replace_name, -- Function located in dialog.lua
@@ -1050,6 +1068,7 @@ _G.charSelect = {
     gCSPlayers = gCSPlayers,
     CUTSCENE_CS_MENU = CUTSCENE_CS_MENU,
     CS_ANIM_MENU = CS_ANIM_MENU,
+    SOUND_CHAR_SELECT_THEME = SOUND_CHAR_SELECT_THEME,
 
     -- Character Select Hooks --
     hook_allow_menu_open = hook_allow_menu_open,
