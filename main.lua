@@ -62,7 +62,7 @@ local TEX_BUTTON_SMALL = get_texture_info("char-select-button-small")
 local TEX_BUTTON_BIG = get_texture_info("char-select-button-big")
 local TEX_OVERRIDE_HEADER = nil
 
-local SOUND_CHAR_SELECT_THEME = audio_stream_load("char-select-menu-theme.ogg")
+SOUND_CHAR_SELECT_THEME = audio_stream_load("char-select-menu-theme.ogg")
 audio_stream_set_looping(SOUND_CHAR_SELECT_THEME, true)
 audio_stream_set_loop_points(SOUND_CHAR_SELECT_THEME, 0, 93.659*22050)
 
